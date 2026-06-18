@@ -1,25 +1,312 @@
-# Agent Workspace Execution Summary
+# Agent.md
 
-This file documents the AI tooling, workflow, engineering decisions, installation steps, environment configuration, and assumptions made during the development of this platform.
+# AI-Assisted Development Report
+
+## Project
+
+Distributed Job Execution Platform
 
 ---
 
-## 1. Installation Steps
+# Overview
 
-### Prerequisites
-- Node.js v18 or higher
-- PostgreSQL (running on localhost:5432)
-- Redis (running on localhost:6379)
+This project was developed using a combination of manual software engineering practices and AI-assisted development tools.
 
-### Backend Setup
+The goal was to design and implement a distributed job execution system capable of processing asynchronous jobs using worker nodes, queue management, real-time monitoring, heartbeat tracking, and execution auditing.
+
+AI tools were used to assist with architecture design, debugging, distributed systems concepts, documentation generation, testing strategies, and implementation validation.
+
+---
+
+# AI Tools Used
+
+## ChatGPT
+
+Used for:
+
+* Architecture planning
+* Technology selection
+* Distributed systems explanation
+* BullMQ and Redis integration guidance
+* Debugging assistance
+* Testing strategies
+* Documentation generation
+* Demo preparation
+
+---
+
+## Claude
+
+Used for:
+
+* Code review
+* Root cause analysis
+* End-to-end system validation
+* Worker lifecycle debugging
+* Queue processing analysis
+* Failure recovery verification
+* Monitoring system validation
+
+---
+
+## GitHub Copilot
+
+Used for:
+
+* Code completion
+* Boilerplate generation
+* Productivity improvements
+
+---
+
+# Development Approach
+
+The project was implemented in iterative phases.
+
+---
+
+## Phase 1: Requirement Analysis
+
+Reviewed assessment requirements and identified major system components:
+
+* Job Management
+* Worker Registration
+* Job Scheduling
+* Queue Processing
+* Monitoring Service
+* Heartbeat Tracking
+* Execution Logging
+* Dashboard
+
+---
+
+## Phase 2: Architecture Design
+
+Designed a distributed architecture consisting of:
+
+* Frontend Dashboard
+* API Server
+* Redis Queue
+* BullMQ
+* Worker Nodes
+* PostgreSQL Database
+* Monitoring Service
+
+Architecture:
+
+User
+↓
+Next.js Dashboard
+↓
+Express API
+↓
+BullMQ
+↓
+Redis
+↓
+Worker Nodes
+↓
+PostgreSQL
+
+---
+
+## Phase 3: Backend Development
+
+Implemented:
+
+### API Server
+
+Responsibilities:
+
+* Create jobs
+* Retrieve jobs
+* Register workers
+* Receive heartbeats
+* Retrieve execution history
+
+Technology:
+
+* Node.js
+* TypeScript
+* Express
+
+---
+
+### Queue Management
+
+Implemented using:
+
+* Redis
+* BullMQ
+
+Features:
+
+* Job Queue
+* Priority Scheduling
+* Retry Support
+* Queue Events
+
+---
+
+### Worker Service
+
+Implemented:
+
+* Worker Registration
+* Job Consumption
+* Progress Updates
+* Execution Logging
+* Heartbeat Reporting
+
+---
+
+### Monitoring Service
+
+Implemented:
+
+* Worker Health Monitoring
+* Heartbeat Validation
+* Failure Detection
+
+---
+
+## Phase 4: Frontend Development
+
+Implemented using:
+
+* Next.js
+* React
+* TypeScript
+* Socket.IO Client
+
+Features:
+
+* Job Creation
+* Job Monitoring
+* Worker Monitoring
+* Execution History
+* Real-Time Updates
+
+---
+
+## Phase 5: Testing and Validation
+
+Validated:
+
+* Job Submission
+* Queue Insertion
+* Worker Registration
+* Heartbeat Updates
+* Job Execution
+* Progress Updates
+* Execution Logging
+* Database Persistence
+
+---
+
+# AI Prompts Used
+
+## Understanding the Project
+
+"Explain this Distributed Job Execution Platform project clearly. Explain what Redis, BullMQ, PostgreSQL, Prisma, Workers, Heartbeats, Monitoring Service, and Socket.IO do. Compare them with alternative technologies and explain why each technology was chosen."
+
+---
+
+## Architecture Design
+
+"Design a scalable Distributed Job Execution Platform using Node.js, TypeScript, Express, PostgreSQL, Prisma, Redis, BullMQ, Socket.IO and Next.js. Explain component interactions, worker lifecycle, queue management, failure recovery, and scalability considerations."
+
+---
+
+## Job Lifecycle Analysis
+
+"Trace the complete lifecycle of a job from creation to completion. Explain how the API stores the job, how BullMQ pushes it to Redis, how workers consume it, how progress is updated, and how execution history is stored."
+
+---
+
+## Root Cause Analysis
+
+"You are a Senior Distributed Systems Engineer. Inspect the entire codebase and trace the complete lifecycle of a job. Verify PostgreSQL, Redis, BullMQ, Worker registration, Heartbeats, Queue names, Monitor service, and Job status transitions. Identify exactly where jobs remain stuck in PENDING state."
+
+---
+
+## End-to-End System Verification
+
+"I want you to act as a Senior Distributed Systems QA Engineer. Verify the complete flow from job creation to completion. Test worker registration, heartbeat updates, queue processing, priority execution, failure recovery, execution logging, and database updates. Generate PASS/FAIL results and identify root causes for any failures."
+
+---
+
+## Worker Debugging
+
+"Inspect worker.ts and verify bootstrap execution, BullMQ worker initialization, queue names, heartbeat logic, job processing logic, status updates, execution history creation, and logging. Identify all issues preventing jobs from being processed."
+
+---
+
+## Documentation Generation
+
+"Generate Architecture.md explaining overall system architecture, component interactions, design decisions, scalability considerations, queue processing flow, worker lifecycle, heartbeat monitoring, and failure recovery."
+
+---
+
+## Demo Preparation
+
+"Generate a complete video demonstration script explaining the architecture, technology choices, database schema, worker lifecycle, queue processing, heartbeat monitoring, fault tolerance, scalability, and end-to-end job execution flow."
+
+---
+
+# Agent Workflow
+
+The following workflow was followed throughout development.
+
+1. Analyze requirements.
+2. Design system architecture.
+3. Create database schema.
+4. Implement API layer.
+5. Configure Redis and BullMQ.
+6. Implement Worker Service.
+7. Implement Monitoring Service.
+8. Implement Frontend Dashboard.
+9. Perform end-to-end testing.
+10. Debug queue processing issues.
+11. Verify worker lifecycle.
+12. Validate execution history.
+13. Generate documentation.
+14. Prepare final demonstration.
+
+---
+
+# Installation Steps
+
+## Prerequisites
+
+Install:
+
+* Node.js (v18+)
+* PostgreSQL
+* Redis
+
+---
+
+## Clone Repository
+
+```bash
+git clone <repository-url>
+cd project-root
+```
+
+---
+
+## Backend Setup
+
 ```bash
 cd backend
 npm install
-npx prisma generate
-npx prisma db push
 ```
 
-### Frontend Setup
+---
+
+## Frontend Setup
+
 ```bash
 cd frontend
 npm install
@@ -27,103 +314,174 @@ npm install
 
 ---
 
-## 2. Environment Configuration
+# Environment Configuration
 
-### Backend `.env` (place in `/backend`)
+Create .env inside backend:
+
 ```env
 PORT=5000
-DATABASE_URL="postgresql://postgres:password@localhost:5432/job_execution"
-REDIS_HOST="localhost"
+
+DATABASE_URL="postgresql://postgres:<password>@localhost:5432/job_execution"
+
+REDIS_HOST=localhost
+
 REDIS_PORT=6379
 ```
 
-### Frontend
-No `.env` file required. The frontend hardcodes `http://localhost:5000` for API calls and `http://localhost:3000` is the default dev server port.
+If password contains special characters:
+
+```text
+@ becomes %40
+```
+
+Example:
+
+```env
+DATABASE_URL="postgresql://postgres:password%40123@localhost:5432/job_execution"
+```
 
 ---
 
-## 3. Running the Application
+# Database Initialization
 
-### Start the API Server
+Create database:
+
+job_execution
+
+Run:
+
+```bash
+npx prisma db push
+```
+
+---
+
+# Running the Application
+
+## Start Backend API
+
 ```bash
 cd backend
 npm run dev
 ```
-Server starts on `http://localhost:5000`.
 
-### Start a Worker Node
-Open a **new terminal**:
+Expected:
+
+```text
+Server running on port 5000
+```
+
+---
+
+## Start Worker
+
+Open new terminal:
+
 ```bash
 cd backend
 npm run worker
 ```
-Each `npm run worker` instance registers as a new worker. Run multiple terminals to simulate a multi-node cluster.
 
-### Start the Frontend Dashboard
+Expected:
+
+```text
+Worker registered
+Heartbeat started
+Waiting for jobs
+```
+
+---
+
+## Start Frontend
+
 Open another terminal:
+
 ```bash
 cd frontend
 npm run dev
 ```
-Dashboard loads at `http://localhost:3000`.
 
----
+Expected:
 
-## 4. Running Tests
-
-```bash
-cd backend
-npm run test
+```text
+http://localhost:3000
 ```
 
-Runs 8 Jest tests covering:
-1. Worker Registration and Availability Flow
-2. Worker Heartbeat System Updates lastHeartbeat Timestamp
-3. Job Submission and Queue Injection Configuration
-4. Exponential Backoff Retry Strategy Configurations
-5. Priority Ordering — HIGH before MEDIUM before LOW
-6. Job lifecycle: PENDING → RUNNING → COMPLETED status transition
-7. Job log entries created on status transitions
-8. Job execution record created on worker pickup
+---
+
+# Running Tests
+
+## Database Verification
+
+```sql
+SELECT * FROM "Job";
+SELECT * FROM "Worker";
+SELECT * FROM "JobExecution";
+SELECT * FROM "JobLog";
+```
 
 ---
 
-## 5. AI Tools & CLI Commands Used
+## Redis Verification
 
-- **Project Scaffold**: Next.js 15 template compiler (`create-next-app` CLI).
-- **Package Manager**: NPM with shell execution bypass overrides.
-- **ORM & DB Tools**: Prisma DB pushes and Prisma Client generator engines.
-- **AI Assistant**: Used for architecture brainstorming, debugging BullMQ connection issues, and code review.
+```bash
+redis-cli
 
----
+KEYS *
+```
 
-## 6. Engineering Decisions Manually Reviewed
-
-- **Redis Connections**: The connection configurations for Redis use the `maxRetriesPerRequest: null` parameter. This is required by BullMQ to prevent connection timeouts during long-running tasks.
-- **Single-Threaded Worker Execution (Concurrency = 1)**: Each worker process is configured with `concurrency: 1`. This isolates CPU-intensive tasks to individual processes, making horizontal scaling as simple as spinning up additional worker processes in separate terminals.
-- **PostgreSQL Cascading Deletes**: We configured relational foreign keys to delete execution histories and timelines when a job is removed, preventing orphaned data records from bloating the database.
-- **Socket.IO over HTTP Polling**: Chosen for real-time dashboard updates to minimize network overhead and provide instant progress visibility.
-- **PostgreSQL as Source of Truth**: The database stores all job history, execution records, and logs for auditability, while Redis handles ephemeral queue state.
+Verify BullMQ queue keys exist.
 
 ---
 
-## 7. Assumptions Made
+## Job Processing Validation
 
-1. **Single-user demo**: The platform is designed for a single user submitting jobs through the dashboard. There is no authentication or multi-tenant isolation.
-2. **Local infrastructure**: PostgreSQL and Redis are expected to run locally on default ports. No Docker or cloud configuration is provided.
-3. **Simulated work**: Worker jobs simulate 6 seconds of work (4 steps × 1.5s each). Real-world workloads would replace this with actual computation.
-4. **No job payload validation**: The payload is stored as JSON but not validated for structure. The system assumes payloads are well-formed.
-5. **Worker names are random**: Each worker gets a random name (e.g., `Worker-4821`). There is no persistent worker identity across restarts.
-6. **Queue pause is cumulative**: Multiple pause calls increment a counter; the queue only resumes after an equal number of resume calls.
+Create a job from dashboard.
+
+Expected:
+
+PENDING
+→ RUNNING
+→ COMPLETED
 
 ---
 
-## 8. Workflow Steps Executed
+## Worker Validation
 
-1. **Scaffold Layout**: Created both `backend/` and `frontend/` workspaces.
-2. **Setup Database Models**: Formulated the `schema.prisma` models and generated the corresponding TypeScript clients.
-3. **REST Server Routing**: Constructed Express endpoints with Zod input validations.
-4. **Scheduler & Queue Systems**: Created BullMQ queue handlers using customized backoff times.
-5. **Worker Daemon & Failure Monitors**: Implemented the heartbeat checker, worker node scripts, and failure recovery processes.
-6. **Dashboard UI**: Designed a real-time Next.js 15 interface integrated with Socket.IO.
-7. **Test Assertions**: Created Jest tests to verify registration, heartbeat, priority ordering, and execution record logic.
+Verify:
+
+* Worker registered
+* Heartbeats updating
+* Worker status ONLINE
+
+---
+
+# Assumptions Made
+
+1. Redis runs locally on port 6379.
+2. PostgreSQL runs locally on port 5432.
+3. Worker and API communicate through localhost.
+4. Jobs represent generic long-running tasks.
+5. Dashboard is intended for monitoring and administration.
+6. Single Redis instance is sufficient for development.
+7. Single PostgreSQL instance is sufficient for development.
+8. Network connectivity exists between workers and API server.
+
+---
+
+# Challenges Faced
+
+* Redis configuration issues
+* PostgreSQL connection configuration
+* BullMQ queue debugging
+* Worker bootstrap issues
+* Queue processing validation
+* Heartbeat monitoring verification
+* Git repository structure issues
+* End-to-end lifecycle debugging
+
+---
+
+# Conclusion
+
+The project demonstrates distributed systems concepts including asynchronous processing, queue-based architectures, worker orchestration, heartbeat monitoring, execution auditing, and real-time monitoring. AI tools were used as engineering assistants to accelerate development, debugging, validation, and documentation while all implementation decisions and integrations were manually verified and tested.
