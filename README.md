@@ -144,28 +144,40 @@ PostgreSQL
 
 ## Architecture Diagram
 
+```mermaid
 graph TD
-    User([User / Web UI]) <--> |Socket.IO / HTTP| API[REST API Server / Express]
-    API <--> |Prisma| DB[(PostgreSQL)]
-    API ---> |Push Jobs| Queue[BullMQ / Redis]
-    
-    subgraph Cluster [Worker Nodes Cluster]
-        Worker1[Worker Node 1]
-        Worker2[Worker Node 2]
-        WorkerN[Worker Node N]
-    end
-    
-    Queue <--> |Pull Jobs & Heartbeats| Worker1
-    Queue <--> |Pull Jobs & Heartbeats| Worker2
-    Queue <--> |Pull Jobs & Heartbeats| WorkerN
-    
-    Worker1 <--> |Heartbeats & Status| API
-    Worker2 <--> |Heartbeats & Status| API
-    WorkerN <--> |Heartbeats & Status| API
-    
-    Monitor[Failure Detection & Requeuer Service] --> |Scan & Recover| DB
-    Monitor --> |Re-queue| Queue
 
+User([User / Dashboard])
+
+User --> API[Express API Server]
+
+API --> DB[(PostgreSQL)]
+
+API --> Queue[BullMQ Queue]
+
+Queue --> Redis[(Redis)]
+
+Redis --> Worker1[Worker Node 1]
+Redis --> Worker2[Worker Node 2]
+Redis --> WorkerN[Worker Node N]
+
+Worker1 --> DB
+Worker2 --> DB
+WorkerN --> DB
+
+Worker1 --> API
+Worker2 --> API
+WorkerN --> API
+
+Monitor[Monitor Service]
+
+Monitor --> DB
+Monitor --> Queue
+
+API <--> Socket[Socket.IO]
+
+Socket <--> User
+```
 
 ---
 
